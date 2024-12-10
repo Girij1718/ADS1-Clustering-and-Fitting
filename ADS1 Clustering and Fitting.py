@@ -61,5 +61,17 @@ numerical_columns = data.select_dtypes(include=['number', 'float64', 'int64']).c
 # Call the function to plot the Elbow Curve
 plot_elbow_curve(data, numerical_columns, max_clusters=10)
 
+from sklearn.metrics import silhouette_score
+
+# Let's assume the optimal number of clusters is 3
+optimal_k = 3
+kmeans = KMeans(n_clusters=optimal_k, random_state=42)
+clusters = kmeans.fit_predict(data[numerical_columns])
+
+# Compute the silhouette score
+silhouette_avg = silhouette_score(data[numerical_columns], clusters)
+print(f"Silhouette Score for {optimal_k} clusters: {silhouette_avg}")
+
+
 
 
