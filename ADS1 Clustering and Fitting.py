@@ -193,6 +193,40 @@ data = pd.read_csv(file_path)
 # Call the function to plot the correlation heatmap
 plot_correlation_heatmap(data)
 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def create_pie_chart(file_path, column_name):
+    """
+    Function to load a CSV file and create a pie chart for a specific column.
+    
+    Parameters:
+    - file_path (str): The path to the CSV file.
+    - column_name (str): The name of the column to visualize.
+    """
+    # Step 1: Load the CSV file into a DataFrame
+    data = pd.read_csv(file_path)
+    
+    # Step 2: Count the unique values in the specified column
+    value_counts = data[column_name].value_counts()
+    
+    # Step 3: Create a pie chart
+    plt.figure(figsize=(8, 8))  # Set the size of the pie chart
+    plt.pie(
+        value_counts, 
+        labels=value_counts.index, 
+        autopct='%1.1f%%', 
+        startangle=140, 
+        colors=plt.cm.Pastel1.colors  # Use a nice pastel color palette
+    )
+    plt.title(f'Distribution of {column_name}', fontsize=16)
+    plt.show()
+
+# Call the function to create a pie chart for the "Brand" column
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+create_pie_chart(file_path, 'Brand')
+
+
 
 
 
