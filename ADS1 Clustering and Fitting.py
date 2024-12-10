@@ -125,5 +125,33 @@ print("Column Names:", data.columns)
 # Call the function to create the linear regression model and plot the results
 linear_regression_plot(data, 'Listing Price', 'Sale Price')
 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def plot_histogram(data, column_name, bins=20, color='blue', alpha=0.7):
+    """
+    Function to plot a histogram for a specified column in the DataFrame.
+    
+    Parameters:
+    - data (DataFrame): The DataFrame containing the data.
+    - column_name (str): The name of the column to plot.
+    - bins (int): Number of bins for the histogram.
+    - color (str): Color of the histogram bars.
+    - alpha (float): Transparency of the bars (0 to 1).
+    """
+    plt.hist(data[column_name], bins=bins, color=color, alpha=alpha)
+    plt.title(f"Distribution of {column_name}")
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.show()
+
+# Example usage
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+
+# Call the function to plot the histogram
+plot_histogram(data, 'Sale Price', bins=20, color='blue', alpha=0.7)
+
+
 
 
