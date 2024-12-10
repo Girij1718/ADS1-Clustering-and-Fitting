@@ -72,6 +72,58 @@ clusters = kmeans.fit_predict(data[numerical_columns])
 silhouette_avg = silhouette_score(data[numerical_columns], clusters)
 print(f"Silhouette Score for {optimal_k} clusters: {silhouette_avg}")
 
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+def linear_regression_plot(data, x_column, y_column):
+    """
+    Fits a linear regression model and plots the scatter plot with regression line.
+    
+    Parameters:
+    data (DataFrame): The input DataFrame containing the data.
+    x_column (str): The name of the independent variable (X-axis).
+    y_column (str): The name of the dependent variable (Y-axis).
+    """
+    # Extract the independent (X) and dependent (Y) variables
+    x = data[x_column].values.reshape(-1, 1)
+    y = data[y_column].values
+
+    # Create a linear regression model
+    model = LinearRegression()
+
+    # Fit the model to the data
+    model.fit(x, y)
+
+    # Make predictions using the model
+    y_pred = model.predict(x)
+
+    # Plot the scatter plot and regression line
+    plt.scatter(x, y, color='blue', label='Data points')
+    plt.plot(x, y_pred, color='red', label='Regression line')
+    plt.title(f'Linear Regression: {x_column} vs {y_column}')
+    plt.xlabel(x_column)
+    plt.ylabel(y_column)
+    plt.legend()
+    plt.show()
+
+    # Print the slope and intercept of the regression line
+    print(f"Slope (m): {model.coef_[0]}")
+    print(f"Intercept (c): {model.intercept_}")
+
+
+# Load the dataset
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+
+# Strip any extra spaces from column names
+data.columns = data.columns.str.strip()
+
+# Print the cleaned column names to check
+print("Column Names:", data.columns)
+
+# Call the function to create the linear regression model and plot the results
+linear_regression_plot(data, 'Listing Price', 'Sale Price')
 
 
 
