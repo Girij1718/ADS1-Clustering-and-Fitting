@@ -152,6 +152,48 @@ data = pd.read_csv(file_path)
 # Call the function to plot the histogram
 plot_histogram(data, 'Sale Price', bins=20, color='blue', alpha=0.7)
 
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def plot_correlation_heatmap(data):
+    """
+    Plots a correlation heatmap for numeric columns in the given DataFrame.
+    
+    Parameters:
+    data (DataFrame): The input DataFrame containing the data.
+    """
+    # Select only numeric columns
+    numeric_data = data.select_dtypes(include=['number', 'float64', 'int64'])
+
+    # Compute correlation matrix for numeric columns only
+    corr_matrix = numeric_data.corr()
+
+    # Plot heatmap
+    sns.heatmap(
+        corr_matrix, 
+        annot=True, 
+        fmt=".2f", 
+        annot_kws={"size": 10, "color": "black"}, 
+        cmap="coolwarm",
+        center=0, 
+        linewidths=0.5, 
+        linecolor='black', 
+        cbar_kws={'shrink': 0.8}
+    )
+    plt.title("Correlation Heatmap", fontsize=16)
+    plt.yticks(rotation=0)
+    plt.show()
+
+
+# Load the dataset
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+
+# Call the function to plot the correlation heatmap
+plot_correlation_heatmap(data)
+
+
 
 
 
