@@ -1,4 +1,10 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import silhouette_score
+from sklearn.linear_model import LinearRegression
+import seaborn as sns
 
 # Load the dataset
 file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
@@ -13,16 +19,10 @@ data.isnull().sum()
 # Drop rows with missing values (or impute if necessary)
 data = data.dropna()  # Alternatively, use data.fillna() for imputation
 
-from sklearn.preprocessing import MinMaxScaler
-
 # Normalize the numerical columns
 scaler = MinMaxScaler()
 numerical_columns = data.select_dtypes(include=['float64', 'int64']).columns
 data[numerical_columns] = scaler.fit_transform(data[numerical_columns])
-
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-import pandas as pd
 
 def plot_elbow_curve(data, numerical_columns, max_clusters=10):
     """
@@ -47,11 +47,6 @@ def plot_elbow_curve(data, numerical_columns, max_clusters=10):
     plt.ylabel("Distortion (Inertia)")
     plt.show()
 
-
-# Load the dataset
-file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
-data = pd.read_csv(file_path)
-
 # Strip any extra spaces from column names
 data.columns = data.columns.str.strip()
 
@@ -60,8 +55,6 @@ numerical_columns = data.select_dtypes(include=['number', 'float64', 'int64']).c
 
 # Call the function to plot the Elbow Curve
 plot_elbow_curve(data, numerical_columns, max_clusters=10)
-
-from sklearn.metrics import silhouette_score
 
 # Let's assume the optimal number of clusters is 3
 optimal_k = 3
@@ -72,14 +65,9 @@ clusters = kmeans.fit_predict(data[numerical_columns])
 silhouette_avg = silhouette_score(data[numerical_columns], clusters)
 print(f"Silhouette Score for {optimal_k} clusters: {silhouette_avg}")
 
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-
 def linear_regression_plot(data, x_column, y_column):
     """
     Fits a linear regression model and plots the scatter plot with regression line.
-    
     Parameters:
     data (DataFrame): The input DataFrame containing the data.
     x_column (str): The name of the independent variable (X-axis).
@@ -111,27 +99,17 @@ def linear_regression_plot(data, x_column, y_column):
     print(f"Slope (m): {model.coef_[0]}")
     print(f"Intercept (c): {model.intercept_}")
 
-
-# Load the dataset
-file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
-data = pd.read_csv(file_path)
-
 # Strip any extra spaces from column names
 data.columns = data.columns.str.strip()
 
 # Print the cleaned column names to check
 print("Column Names:", data.columns)
 
-# Call the function to create the linear regression model and plot the results
 linear_regression_plot(data, 'Listing Price', 'Sale Price')
-
-import pandas as pd
-import matplotlib.pyplot as plt
 
 def plot_histogram(data, column_name, bins=20, color='blue', alpha=0.7):
     """
     Function to plot a histogram for a specified column in the DataFrame.
-    
     Parameters:
     - data (DataFrame): The DataFrame containing the data.
     - column_name (str): The name of the column to plot.
@@ -145,21 +123,11 @@ def plot_histogram(data, column_name, bins=20, color='blue', alpha=0.7):
     plt.ylabel("Frequency")
     plt.show()
 
-# Example usage
-file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
-data = pd.read_csv(file_path)
-
-# Call the function to plot the histogram
 plot_histogram(data, 'Sale Price', bins=20, color='blue', alpha=0.7)
-
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 def plot_correlation_heatmap(data):
     """
     Plots a correlation heatmap for numeric columns in the given DataFrame.
-    
     Parameters:
     data (DataFrame): The input DataFrame containing the data.
     """
@@ -185,21 +153,11 @@ def plot_correlation_heatmap(data):
     plt.yticks(rotation=0)
     plt.show()
 
-
-# Load the dataset
-file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
-data = pd.read_csv(file_path)
-
-# Call the function to plot the correlation heatmap
 plot_correlation_heatmap(data)
-
-import pandas as pd
-import matplotlib.pyplot as plt
 
 def create_pie_chart(file_path, column_name):
     """
     Function to load a CSV file and create a pie chart for a specific column.
-    
     Parameters:
     - file_path (str): The path to the CSV file.
     - column_name (str): The name of the column to visualize.
@@ -222,12 +180,4 @@ def create_pie_chart(file_path, column_name):
     plt.title(f'Distribution of {column_name}', fontsize=16)
     plt.show()
 
-# Call the function to create a pie chart for the "Brand" column
-file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
 create_pie_chart(file_path, 'Brand')
-
-
-
-
-
-
